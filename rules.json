@@ -117,6 +117,104 @@
     ],
     "4R_G4_SET": [
       "EOP-4R-G4-SET"
+    ],
+
+    "IOP_GX_LC_550_DRIVER": [
+      "IOP-GX-550-DS",
+      "IOP-LC-250-DS"
+    ],
+    "IOP_GX_LC_550_PASSENGER": [
+      "IOP-GX-550-PS",
+      "IOP-LC-250-PS"
+    ],
+    "IOP_GX_LC_550_SET": [
+      "IOP-GX-550-SET",
+      "IOP-LC-250-SET"
+    ],
+    "IOP_GX_LC_550_SET_COP": [
+      "IOP-GX-550-SET-COP",
+      "IOP-LC-250-SET-COP"
+    ],
+
+    "IOP_GX_LC_470_DRIVER": [
+      "IOP-GX-470-DS",
+      "IOP-LC-120-DS"
+    ],
+    "IOP_GX_LC_470_PASSENGER": [
+      "IOP-GX-470-PS",
+      "IOP-LC-120-PS"
+    ],
+    "IOP_GX_LC_470_SET": [
+      "IOP-GX-470-SET",
+      "IOP-LC-120-SET"
+    ],
+    "IOP_GX_LC_470_SET_COP": [
+      "IOP-GX-470-SET-COP",
+      "IOP-LC-120-SET-COP"
+    ],
+
+    "IOP_4R_G6_DRIVER": [
+      "IOP-4R-G6-DS"
+    ],
+    "IOP_4R_G6_PASSENGER": [
+      "IOP-4R-G6-PS"
+    ],
+    "IOP_4R_G6_SET": [
+      "IOP-4R-G6-SET"
+    ],
+    "IOP_4R_G6_SET_COP": [
+      "IOP-4R-G6-SET-COP"
+    ],
+
+    "IOP_4R_G5_DRIVER": [
+      "IOP-4R-G5-DS"
+    ],
+    "IOP_4R_G5_PASSENGER": [
+      "IOP-4R-G5-PS"
+    ],
+    "IOP_4R_G5_SET": [
+      "IOP-4R-G5-SET"
+    ],
+    "IOP_4R_G5_SET_COP": [
+      "IOP-4R-G5-SET-COP"
+    ],
+
+    "IOP_4R_G3_DRIVER": [
+      "IOP-4R-G3-DS"
+    ],
+    "IOP_4R_G3_PASSENGER": [
+      "IOP-4R-G3-PS"
+    ],
+    "IOP_4R_G3_SET": [
+      "IOP-4R-G3-SET"
+    ],
+    "IOP_4R_G3_SET_COP": [
+      "IOP-4R-G3-SET-COP"
+    ],
+
+    "IOP_SEQ_G2_DRIVER": [
+      "IOP-SEQ-G2-DS"
+    ],
+    "IOP_SEQ_G2_PASSENGER": [
+      "IOP-SEQ-G2-PS"
+    ],
+    "IOP_SEQ_G2_SET": [
+      "IOP-SEQ-G2-SET"
+    ],
+
+    "IOP_SEQ_G1_DRIVER": [
+      "IOP-SEQ-G1-DS"
+    ],
+    "IOP_SEQ_G1_PASSENGER": [
+      "IOP-SEQ-G1-PS"
+    ],
+    "IOP_SEQ_G1_SET": [
+      "IOP-SEQ-G1-SET"
+    ],
+
+    "IOP_INTERIOR_CEILING": [
+      "IOP-COP-A",
+      "IOP-COP-B"
     ]
   },
 
@@ -196,6 +294,91 @@
       "components": [
         "4R_G4_DRIVER",
         "4R_G4_PASSENGER"
+      ]
+    },
+
+    {
+      "setGroup": "IOP_GX_LC_550_SET",
+      "components": [
+        "IOP_GX_LC_550_DRIVER",
+        "IOP_GX_LC_550_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_GX_LC_550_SET_COP",
+      "components": [
+        "IOP_GX_LC_550_SET",
+        "IOP_INTERIOR_CEILING"
+      ]
+    },
+    {
+      "setGroup": "IOP_GX_LC_470_SET",
+      "components": [
+        "IOP_GX_LC_470_DRIVER",
+        "IOP_GX_LC_470_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_GX_LC_470_SET_COP",
+      "components": [
+        "IOP_GX_LC_470_SET",
+        "IOP_INTERIOR_CEILING"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G6_SET",
+      "components": [
+        "IOP_4R_G6_DRIVER",
+        "IOP_4R_G6_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G6_SET_COP",
+      "components": [
+        "IOP_4R_G6_SET",
+        "IOP_INTERIOR_CEILING"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G5_SET",
+      "components": [
+        "IOP_4R_G5_DRIVER",
+        "IOP_4R_G5_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G5_SET_COP",
+      "components": [
+        "IOP_4R_G5_SET",
+        "IOP_INTERIOR_CEILING"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G3_SET",
+      "components": [
+        "IOP_4R_G3_DRIVER",
+        "IOP_4R_G3_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_4R_G3_SET_COP",
+      "components": [
+        "IOP_4R_G3_SET",
+        "IOP_INTERIOR_CEILING"
+      ]
+    },
+    {
+      "setGroup": "IOP_SEQ_G2_SET",
+      "components": [
+        "IOP_SEQ_G2_DRIVER",
+        "IOP_SEQ_G2_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "IOP_SEQ_G1_SET",
+      "components": [
+        "IOP_SEQ_G1_DRIVER",
+        "IOP_SEQ_G1_PASSENGER"
       ]
     }
   ]
