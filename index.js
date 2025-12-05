@@ -90,7 +90,7 @@ async function fetchAllVariants() {
 	}
 
 	console.log(
-		`Loaded ${inventoryItemIdToSku.size} inventory items across ${skuToInventoryItemIds.size} SKUs`
+		`Startup: loaded ${inventoryItemIdToSku.size} inventory items across ${skuToInventoryItemIds.size} SKUs`
 	);
 }
 
@@ -139,12 +139,10 @@ async function fetchAvailableForInventoryItem(inventoryItemId, locationId) {
 
 // Helper: actually set inventory level
 async function setInventoryLevel(inventoryItemId, locationId, available) {
-	console.log(
-		`Setting inventory_item_id ${inventoryItemId} at location ${locationId} to available=${available}`
-	);
-
 	if (!WRITE_MODE) {
-		console.log("WRITE_MODE is false, skipping API call");
+		console.log(
+			`WRITE_MODE=false, would set inventory_item_id ${inventoryItemId} at location ${locationId} to ${available}`
+		);
 		return;
 	}
 
@@ -176,21 +174,21 @@ async function setInventoryLevel(inventoryItemId, locationId, available) {
 	const key = `${inventoryItemId}:${locationId}`;
 	inventoryLevelCache.set(key, { available, fetchedAt: Date.now() });
 
-	console.log(`Successfully set inventory level for item ${inventoryItemId}`);
+	console.log(
+		`Set inventory_item_id ${inventoryItemId} at location ${locationId} to ${available}`
+	);
 }
 
 // Sync all SKUs in an alias group to a specific available value
 async function syncAliasGroup(groupName, locationId, targetAvailable) {
 	const groupSkus = rules.aliasGroups[groupName] || [];
 	if (groupSkus.length === 0) {
-		console.log(`Alias group ${groupName} has no SKUs`);
+		console.log(`Alias group ${groupName}: no SKUs configured`);
 		return;
 	}
 
 	console.log(
-		`Alias group ${groupName}: syncing available=${targetAvailable} at location ${locationId} for SKUs [${groupSkus.join(
-			", "
-		)}]`
+		`Alias group ${groupName}: syncing to ${targetAvailable} at location ${locationId}`
 	);
 
 	const seenInvIds = new Set();
@@ -204,15 +202,12 @@ async function syncAliasGroup(groupName, locationId, targetAvailable) {
 			const current = await fetchAvailableForInventoryItem(invId, locationId);
 			if (current == null) {
 				console.log(
-					`Alias group ${groupName}: no current inventory level for item ${invId}`
+					`Alias group ${groupName}: no inventory level for item ${invId}`
 				);
 				continue;
 			}
 
 			if (current === targetAvailable) {
-				console.log(
-					`Alias group ${groupName}: item ${invId} already at ${targetAvailable}, skipping`
-				);
 				continue;
 			}
 
@@ -235,7 +230,7 @@ async function fetchAvailableForGroup(groupName, locationId, webhookContext) {
 
 	const groupSkus = rules.aliasGroups[groupName];
 	if (!groupSkus || groupSkus.length === 0) {
-		console.log(`Group ${groupName} has no SKUs defined`);
+		console.log(`Group ${groupName}: no SKUs configured`);
 		return null;
 	}
 
@@ -243,7 +238,7 @@ async function fetchAvailableForGroup(groupName, locationId, webhookContext) {
 	const invIds = skuToInventoryItemIds.get(repSku) || [];
 	if (invIds.length === 0) {
 		console.log(
-			`No inventory_item_id found for representative SKU ${repSku} (group ${groupName})`
+			`Group ${groupName}: no inventory_item_id for representative SKU ${repSku}`
 		);
 		return null;
 	}
@@ -255,18 +250,12 @@ async function fetchAvailableForGroup(groupName, locationId, webhookContext) {
 app.post("/webhooks/inventory", async (req, res) => {
 	const body = req.body;
 
-	console.log("Inventory webhook received:");
-	console.log(JSON.stringify(body, null, 2));
-
 	const invId = body.inventory_item_id;
 	const locationId = body.location_id;
 	const available = body.available;
 
 	// 1) Location guard: only act on your main location
 	if (ALLOWED_LOCATION_ID && String(locationId) !== String(ALLOWED_LOCATION_ID)) {
-		console.log(
-			`Ignoring webhook for location ${locationId} (allowed location is ${ALLOWED_LOCATION_ID})`
-		);
 		res.status(200).send("ok");
 		return;
 	}
@@ -282,7 +271,7 @@ app.post("/webhooks/inventory", async (req, res) => {
 	const last = recentEvents.get(cacheKey);
 	if (last && last.available === available && Date.now() - last.ts < 2000) {
 		console.log(
-			`Duplicate webhook for item ${invId} at location ${locationId} with available=${available}, ignoring`
+			`Duplicate webhook ignored for item ${invId} at location ${locationId} with available=${available}`
 		);
 		res.status(200).send("ok");
 		return;
@@ -291,13 +280,13 @@ app.post("/webhooks/inventory", async (req, res) => {
 
 	const sku = inventoryItemIdToSku.get(invId);
 	if (!sku) {
-		console.log(`Unknown inventory_item_id ${invId}, ignoring`);
+		console.log(`Webhook for unknown inventory_item_id ${invId}, ignoring`);
 		res.status(200).send("ok");
 		return;
 	}
 
 	console.log(
-		`Webhook for SKU ${sku} at location ${locationId}, available=${available}`
+		`Webhook: SKU ${sku}, location ${locationId}, available=${available}`
 	);
 
 	// Find alias groups this SKU belongs to
@@ -309,7 +298,7 @@ app.post("/webhooks/inventory", async (req, res) => {
 	}
 
 	if (groupsForSku.length === 0) {
-		console.log("No alias groups configured for this SKU. Nothing to do.");
+		console.log(`No alias groups configured for SKU ${sku}.`);
 		res.status(200).send("ok");
 		return;
 	}
@@ -330,7 +319,6 @@ app.post("/webhooks/inventory", async (req, res) => {
 		);
 
 		if (affectedSets.length === 0) {
-			console.log("No set rules affected by this change.");
 			res.status(200).send("ok");
 			return;
 		}
@@ -348,7 +336,7 @@ app.post("/webhooks/inventory", async (req, res) => {
 				);
 				if (qty == null) {
 					console.log(
-						`Missing quantity for component group ${compGroup} in set ${set.setGroup}`
+						`Set ${set.setGroup}: missing quantity for component group ${compGroup}`
 					);
 					continue;
 				}
@@ -357,7 +345,7 @@ app.post("/webhooks/inventory", async (req, res) => {
 
 			if (componentQtys.length !== set.components.length) {
 				console.log(
-					`Skipping set ${set.setGroup}: not all component quantities available`
+					`Set ${set.setGroup}: not all component quantities available, skipping`
 				);
 				continue;
 			}
@@ -366,13 +354,11 @@ app.post("/webhooks/inventory", async (req, res) => {
 			const setSkus = rules.aliasGroups[set.setGroup];
 
 			console.log(
-				`Set rule ${set.setGroup}: component groups ${
-					set.components
-				} have quantities [${componentQtys.join(
+				`Set ${set.setGroup}: components ${set.components.join(
 					", "
-				)}]; syncing all set SKUs [${setSkus.join(
+				)} quantities [${componentQtys.join(
 					", "
-				)}] to available=${setQty} at location ${locationId}`
+				)}] -> syncing sets to ${setQty} at location ${locationId}`
 			);
 
 			await syncAliasGroup(set.setGroup, locationId, setQty);
