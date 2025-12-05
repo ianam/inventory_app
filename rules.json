@@ -12,7 +12,6 @@
       "EOP-GX-550-SET",
       "EOP-LC-250-SET"
     ],
-
     "GX_LC_470_DRIVER": [
       "EOP-GX-470-DS",
       "EOP-LC-120-DS"
@@ -25,7 +24,6 @@
       "EOP-GX-470-SET",
       "EOP-LC-120-SET"
     ],
-
     "4R3_SEQ1_DRIVER": [
       "EOP-4R-G3-DS",
       "EOP-SEQ-G1-DS"
@@ -38,7 +36,6 @@
       "EOP-4R-G3-SET",
       "EOP-SEQ-G1-SET"
     ],
-
     "RIV_R1S_DRIVER": [
       "EOP-RIV-R1S-DS"
     ],
@@ -48,7 +45,6 @@
     "RIV_R1S_SET": [
       "EOP-RIV-R1S-SET"
     ],
-
     "SEQ_G2_DRIVER": [
       "EOP-SEQ-G2-DS"
     ],
@@ -58,7 +54,6 @@
     "SEQ_G2_SET": [
       "EOP-SEQ-G2-SET"
     ],
-
     "CAY_G1_DRIVER": [
       "EOP-CAY-G1-DS"
     ],
@@ -68,7 +63,6 @@
     "CAY_G1_SET": [
       "EOP-CAY-G1-SET"
     ],
-
     "RAV4_G5_DRIVER": [
       "EOP-RAV4-G5-DS"
     ],
@@ -78,7 +72,6 @@
     "RAV4_G5_SET": [
       "EOP-RAV4-G5-SET"
     ],
-
     "FJ_G1_DRIVER": [
       "EOP-FJ-G1-DS"
     ],
@@ -88,7 +81,6 @@
     "FJ_G1_SET": [
       "EOP-FJ-G1-SET"
     ],
-
     "4R_G6_DRIVER": [
       "EOP-4R-G6-DS"
     ],
@@ -98,7 +90,6 @@
     "4R_G6_SET": [
       "EOP-4R-G6-SET"
     ],
-
     "4R_G5_DRIVER": [
       "EOP-4R-G5-DS"
     ],
@@ -108,7 +99,6 @@
     "4R_G5_SET": [
       "EOP-4R-G5-SET"
     ],
-
     "4R_G4_DRIVER": [
       "EOP-4R-G4-DS"
     ],
@@ -118,7 +108,6 @@
     "4R_G4_SET": [
       "EOP-4R-G4-SET"
     ],
-
     "IOP_GX_LC_550_DRIVER": [
       "IOP-GX-550-DS",
       "IOP-LC-250-DS"
@@ -135,7 +124,6 @@
       "IOP-GX-550-SET-COP",
       "IOP-LC-250-SET-COP"
     ],
-
     "IOP_GX_LC_470_DRIVER": [
       "IOP-GX-470-DS",
       "IOP-LC-120-DS"
@@ -152,7 +140,6 @@
       "IOP-GX-470-SET-COP",
       "IOP-LC-120-SET-COP"
     ],
-
     "IOP_4R_G6_DRIVER": [
       "IOP-4R-G6-DS"
     ],
@@ -165,7 +152,6 @@
     "IOP_4R_G6_SET_COP": [
       "IOP-4R-G6-SET-COP"
     ],
-
     "IOP_4R_G5_DRIVER": [
       "IOP-4R-G5-DS"
     ],
@@ -178,7 +164,6 @@
     "IOP_4R_G5_SET_COP": [
       "IOP-4R-G5-SET-COP"
     ],
-
     "IOP_4R_G3_DRIVER": [
       "IOP-4R-G3-DS"
     ],
@@ -191,7 +176,6 @@
     "IOP_4R_G3_SET_COP": [
       "IOP-4R-G3-SET-COP"
     ],
-
     "IOP_SEQ_G2_DRIVER": [
       "IOP-SEQ-G2-DS"
     ],
@@ -201,7 +185,6 @@
     "IOP_SEQ_G2_SET": [
       "IOP-SEQ-G2-SET"
     ],
-
     "IOP_SEQ_G1_DRIVER": [
       "IOP-SEQ-G1-DS"
     ],
@@ -211,7 +194,6 @@
     "IOP_SEQ_G1_SET": [
       "IOP-SEQ-G1-SET"
     ],
-
     "RR_4R_G3_G2": [
       "RR-4R-G3",
       "RR-4R-G2"
@@ -234,7 +216,6 @@
       "RR-COL-G2",
       "RR-COL-G3"
     ],
-
     "RR_TU_G3": [
       "RR-TU-G3"
     ],
@@ -287,13 +268,50 @@
       "RR-F150-G13-N",
       "RR-F150-G13-Y"
     ],
-
+    "COM_RIV_R1S": [
+      "COM-RIV-R1S"
+    ],
+    "COM_GX_550": [
+      "COM-GX-550"
+    ],
+    "COM_LC_250": [
+      "COM-LC-250"
+    ],
+    "COM_GX_470": [
+      "COM-GX-470"
+    ],
+    "COM_LC_120": [
+      "COM-LC-120"
+    ],
+    "COM_CAY_G1": [
+      "COM-CAY-G1"
+    ],
+    "COM_RAV4_G5": [
+      "COM-RAV4-G5"
+    ],
+    "COM_FJ_G1": [
+      "COM-FJ-G1"
+    ],
+    "COM_SEQ_G1": [
+      "COM-SEQ-G1"
+    ],
+    "COM_4R_G6": [
+      "COM-4R-G6"
+    ],
+    "COM_4R_G5": [
+      "COM-4R-G5"
+    ],
+    "COM_4R_G4": [
+      "COM-4R-G4"
+    ],
+    "COM_4R_G3": [
+      "COM-4R-G3"
+    ],
     "IOP_INTERIOR_CEILING": [
       "IOP-COP-A",
       "IOP-COP-B"
     ]
   },
-
   "sets": [
     {
       "setGroup": "GX_LC_550_SET",
@@ -372,7 +390,6 @@
         "4R_G4_PASSENGER"
       ]
     },
-
     {
       "setGroup": "IOP_GX_LC_550_SET",
       "components": [
@@ -455,6 +472,97 @@
       "components": [
         "IOP_SEQ_G1_DRIVER",
         "IOP_SEQ_G1_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "COM_RIV_R1S",
+      "components": [
+        "RR_RIV_R1S",
+        "RIV_R1S_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_GX_550",
+      "components": [
+        "RR_LC250_GX550",
+        "GX_LC_550_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_LC_250",
+      "components": [
+        "RR_LC250_GX550",
+        "GX_LC_550_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_GX_470",
+      "components": [
+        "RR_LC120_GX470",
+        "GX_LC_470_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_LC_120",
+      "components": [
+        "RR_LC120_GX470",
+        "GX_LC_470_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_CAY_G1",
+      "components": [
+        "RR_CAY_G1_RACK",
+        "CAY_G1_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_RAV4_G5",
+      "components": [
+        "RR_RAV4_G5",
+        "RAV4_G5_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_FJ_G1",
+      "components": [
+        "RR_FJ_G1_RACK",
+        "FJ_G1_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_SEQ_G1",
+      "components": [
+        "RR_SEQ_G1",
+        "4R3_SEQ1_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_4R_G6",
+      "components": [
+        "RR_4R_G6_RACK",
+        "4R_G6_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_4R_G5",
+      "components": [
+        "RR_4R_G5_RACK",
+        "4R_G5_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_4R_G4",
+      "components": [
+        "RR_4R_G4_RACK",
+        "4R_G4_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_4R_G3",
+      "components": [
+        "RR_4R_G3_G2",
+        "4R3_SEQ1_SET"
       ]
     }
   ]
