@@ -11,6 +11,32 @@
     "GX_LC_550_SET": [
       "EOP-GX-550-SET",
       "EOP-LC-250-SET"
+    ],
+
+    "GX_LC_470_DRIVER": [
+      "EOP-GX-470-DS",
+      "EOP-LC-120-DS"
+    ],
+    "GX_LC_470_PASSENGER": [
+      "EOP-GX-470-PS",
+      "EOP-LC-120-PS"
+    ],
+    "GX_LC_470_SET": [
+      "EOP-GX-470-SET",
+      "EOP-LC-120-SET"
+    ],
+
+    "4R3_SEQ1_DRIVER": [
+      "EOP-4R-G3-DS",
+      "EOP-SEQ-G1-DS"
+    ],
+    "4R3_SEQ1_PASSENGER": [
+      "EOP-4R-G3-PS",
+      "EOP-SEQ-G1-PS"
+    ],
+    "4R3_SEQ1_SET": [
+      "EOP-4R-G3-SET",
+      "EOP-SEQ-G1-SET"
     ]
   },
 
@@ -20,6 +46,20 @@
       "components": [
         "GX_LC_550_DRIVER",
         "GX_LC_550_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "GX_LC_470_SET",
+      "components": [
+        "GX_LC_470_DRIVER",
+        "GX_LC_470_PASSENGER"
+      ]
+    },
+    {
+      "setGroup": "4R3_SEQ1_SET",
+      "components": [
+        "4R3_SEQ1_DRIVER",
+          "4R3_SEQ1_PASSENGER"
       ]
     }
   ]
