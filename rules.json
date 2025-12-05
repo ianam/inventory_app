@@ -212,6 +212,82 @@
       "IOP-SEQ-G1-SET"
     ],
 
+    "RR_4R_G3_G2": [
+      "RR-4R-G3",
+      "RR-4R-G2"
+    ],
+    "RR_LC120_GX470": [
+      "RR-LC-120",
+      "RR-GX-470"
+    ],
+    "RR_LC250_GX550": [
+      "RR-LC-250",
+      "RR-GX-550"
+    ],
+    "RR_TAC_G2_G3": [
+      "RR-TAC-G2",
+      "RR-TAC-G3"
+    ],
+    "RR_CAN_COL_ALL": [
+      "RR-CAN-G2",
+      "RR-CAN-G3",
+      "RR-COL-G2",
+      "RR-COL-G3"
+    ],
+
+    "RR_TU_G3": [
+      "RR-TU-G3"
+    ],
+    "RR_TU_G2": [
+      "RR-TU-G2"
+    ],
+    "RR_TAC_G4": [
+      "RR-TAC-G4"
+    ],
+    "RR_SEQ_G3": [
+      "RR-SEQ-G3"
+    ],
+    "RR_SEQ_G2": [
+      "RR-SEQ-G2"
+    ],
+    "RR_SEQ_G1": [
+      "RR-SEQ-G1"
+    ],
+    "RR_RIV_R1T": [
+      "RR-RIV-R1T"
+    ],
+    "RR_RIV_R1S": [
+      "RR-RIV-R1S"
+    ],
+    "RR_RAV4_G5": [
+      "RR-RAV4-G5"
+    ],
+    "RR_RAN_G4": [
+      "RR-RAN-G4"
+    ],
+    "RR_FJ_G1_RACK": [
+      "RR-FJ-G1"
+    ],
+    "RR_CAY_G1_RACK": [
+      "RR-CAY-G1"
+    ],
+    "RR_BR_G6": [
+      "RR-BR-G6"
+    ],
+    "RR_4R_G6_RACK": [
+      "RR-4R-G6"
+    ],
+    "RR_4R_G5_RACK": [
+      "RR-4R-G5"
+    ],
+    "RR_4R_G4_RACK": [
+      "RR-4R-G4"
+    ],
+    "RR_F150_G13": [
+      "RR-F150-G13-N",
+      "RR-F150-G13-Y"
+    ],
+
     "IOP_INTERIOR_CEILING": [
       "IOP-COP-A",
       "IOP-COP-B"
