@@ -8,9 +8,12 @@ const rules = JSON.parse(fs.readFileSync("./rules.json", "utf8"));
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const SHOP = process.env.SHOPIFY_SHOP; // e.g. "van44-overlanding-gear"
+const SHOP = process.env.SHOPIFY_SHOP;               // e.g. "rpztwp-r0"
 const ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_API_TOKEN;
 const API_VERSION = "2025-10";
+
+// Set this to false if you want to go back to dry-run mode
+const WRITE_MODE = true;
 
 if (!SHOP || !ADMIN_TOKEN) {
   console.error("Missing SHOPIFY_SHOP or SHOPIFY_ADMIN_API_TOKEN env vars");
@@ -82,9 +85,117 @@ app.get("/health", (req, res) => {
   res.status(200).send("ok");
 });
 
+// Helper: fetch available for a specific inventory item at a location
+async function fetchAvailableForInventoryItem(inventoryItemId, locationId) {
+  const resp = await fetch(
+    `https://${SHOP}.myshopify.com/admin/api/${API_VERSION}/inventory_levels.json?inventory_item_ids=${inventoryItemId}&location_ids=${locationId}`,
+    {
+      method: "GET",
+      headers: {
+        "X-Shopify-Access-Token": ADMIN_TOKEN,
+        "Content-Type": "application/json"
+      }
+    }
+  );
+
+  if (!resp.ok) {
+    const text = await resp.text();
+    console.log(
+      `Error fetching inventory level for item ${inventoryItemId}: ${resp.status} ${text}`
+    );
+    return null;
+  }
+
+  const data = await resp.json();
+  const levels = data.inventory_levels || [];
+  if (levels.length === 0) return null;
+
+  return levels[0].available;
+}
+
+// Helper: actually set inventory level
+async function setInventoryLevel(inventoryItemId, locationId, available) {
+  console.log(
+    `Setting inventory_item_id ${inventoryItemId} at location ${locationId} to available=${available}`
+  );
+
+  if (!WRITE_MODE) {
+    console.log("WRITE_MODE is false, skipping API call");
+    return;
+  }
+
+  const resp = await fetch(
+    `https://${SHOP}.myshopify.com/admin/api/${API_VERSION}/inventory_levels/set.json`,
+    {
+      method: "POST",
+      headers: {
+        "X-Shopify-Access-Token": ADMIN_TOKEN,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        location_id: locationId,
+        inventory_item_id: inventoryItemId,
+        available: available
+      })
+    }
+  );
+
+  if (!resp.ok) {
+    const text = await resp.text();
+    console.log(
+      `Error setting inventory level for item ${inventoryItemId}: ${resp.status} ${text}`
+    );
+    return;
+  }
+
+  console.log(`Successfully set inventory level for item ${inventoryItemId}`);
+}
+
+// Sync all SKUs in an alias group to a specific available value
+async function syncAliasGroup(groupName, locationId, targetAvailable) {
+  const groupSkus = rules.aliasGroups[groupName] || [];
+  if (groupSkus.length === 0) {
+    console.log(`Alias group ${groupName} has no SKUs`);
+    return;
+  }
+
+  console.log(
+    `Alias group ${groupName}: syncing available=${targetAvailable} at location ${locationId} for SKUs [${groupSkus.join(
+      ", "
+    )}]`
+  );
+
+  const seenInvIds = new Set();
+
+  for (const sku of groupSkus) {
+    const invIds = skuToInventoryItemIds.get(sku) || [];
+    for (const invId of invIds) {
+      if (seenInvIds.has(invId)) continue;
+      seenInvIds.add(invId);
+
+      const current = await fetchAvailableForInventoryItem(invId, locationId);
+      if (current == null) {
+        console.log(
+          `Alias group ${groupName}: no current inventory level for item ${invId}`
+        );
+        continue;
+      }
+
+      if (current === targetAvailable) {
+        console.log(
+          `Alias group ${groupName}: item ${invId} already at ${targetAvailable}, skipping`
+        );
+        continue;
+      }
+
+      await setInventoryLevel(invId, locationId, targetAvailable);
+    }
+  }
+}
+
 // Helper: get available quantity for one alias group at a location
+// Uses the webhook value for the group that actually changed when possible
 async function fetchAvailableForGroup(groupName, locationId, webhookContext) {
-  // If this group is the one from the webhook, we already know its quantity
   if (
     webhookContext &&
     webhookContext.groupsForSku.includes(groupName)
@@ -108,34 +219,7 @@ async function fetchAvailableForGroup(groupName, locationId, webhookContext) {
   }
 
   const repInvId = invIds[0];
-
-  const resp = await fetch(
-    `https://${SHOP}.myshopify.com/admin/api/${API_VERSION}/inventory_levels.json?inventory_item_ids=${repInvId}&location_ids=${locationId}`,
-    {
-      method: "GET",
-      headers: {
-        "X-Shopify-Access-Token": ADMIN_TOKEN,
-        "Content-Type": "application/json"
-      }
-    }
-  );
-
-  if (!resp.ok) {
-    const text = await resp.text();
-    console.log(
-      `Error fetching inventory level for group ${groupName}: ${resp.status} ${text}`
-    );
-    return null;
-  }
-
-  const data = await resp.json();
-  const levels = data.inventory_levels || [];
-  if (levels.length === 0) {
-    console.log(`No inventory level found for group ${groupName}`);
-    return null;
-  }
-
-  return levels[0].available;
+  return await fetchAvailableForInventoryItem(repInvId, locationId);
 }
 
 app.post("/webhooks/inventory", async (req, res) => {
@@ -177,69 +261,71 @@ app.post("/webhooks/inventory", async (req, res) => {
     `SKU ${sku} belongs to alias groups: ${groupsForSku.join(", ")}`
   );
 
-  // Dry-run: show what we'd sync within each alias group
-  for (const groupName of groupsForSku) {
-    const groupSkus = rules.aliasGroups[groupName];
-    console.log(
-      `Alias group ${groupName}: would sync available=${available} to SKUs [${groupSkus.join(
-        ", "
-      )}] at location ${locationId}`
+  try {
+    // 1) Sync alias groups (GX/LC driver or passenger groups)
+    for (const groupName of groupsForSku) {
+      await syncAliasGroup(groupName, locationId, available);
+    }
+
+    // 2) Handle any sets that use one of these groups as a component
+    const affectedSets = rules.sets.filter((set) =>
+      set.components.some((c) => groupsForSku.includes(c))
     );
-  }
 
-  // Now handle any sets that use one of these groups as a component
-  const affectedSets = rules.sets.filter((set) =>
-    set.components.some((c) => groupsForSku.includes(c))
-  );
+    if (affectedSets.length === 0) {
+      console.log("No set rules affected by this change.");
+      res.status(200).send("ok");
+      return;
+    }
 
-  if (affectedSets.length === 0) {
-    console.log("No set rules affected by this change.");
-    res.status(200).send("ok");
-    return;
-  }
+    const webhookContext = { groupsForSku, available };
 
-  const webhookContext = { groupsForSku, available };
+    for (const set of affectedSets) {
+      const componentQtys = [];
 
-  for (const set of affectedSets) {
-    const componentQtys = [];
+      for (const compGroup of set.components) {
+        const qty = await fetchAvailableForGroup(
+          compGroup,
+          locationId,
+          webhookContext
+        );
+        if (qty == null) {
+          console.log(
+            `Missing quantity for component group ${compGroup} in set ${set.setGroup}`
+          );
+          continue;
+        }
+        componentQtys.push(qty);
+      }
 
-    for (const compGroup of set.components) {
-      const qty = await fetchAvailableForGroup(
-        compGroup,
-        locationId,
-        webhookContext
-      );
-      if (qty == null) {
+      if (componentQtys.length !== set.components.length) {
         console.log(
-          `Missing quantity for component group ${compGroup} in set ${set.setGroup}`
+          `Skipping set ${set.setGroup}: not all component quantities available`
         );
         continue;
       }
-      componentQtys.push(qty);
-    }
 
-    if (componentQtys.length !== set.components.length) {
+      const setQty = Math.min(...componentQtys);
+      const setSkus = rules.aliasGroups[set.setGroup];
+
       console.log(
-        `Skipping set ${set.setGroup}: not all component quantities available`
+        `Set rule ${set.setGroup}: component groups ${
+          set.components
+        } have quantities [${componentQtys.join(
+          ", "
+        )}]; syncing all set SKUs [${setSkus.join(
+          ", "
+        )}] to available=${setQty} at location ${locationId}`
       );
-      continue;
+
+      await syncAliasGroup(set.setGroup, locationId, setQty);
     }
 
-    const setQty = Math.min(...componentQtys);
-    const setSkus = rules.aliasGroups[set.setGroup];
-
-    console.log(
-      `Set rule ${set.setGroup}: component groups ${
-        set.components
-      } have quantities [${componentQtys.join(
-        ", "
-      )}]; would set all set SKUs [${setSkus.join(
-        ", "
-      )}] to available=${setQty} at location ${locationId}`
-    );
+    res.status(200).send("ok");
+  } catch (err) {
+    console.log("Error handling webhook:", err);
+    res.status(500).send("error");
   }
-
-  res.status(200).send("ok");
 });
 
 // Start: build maps, then listen
