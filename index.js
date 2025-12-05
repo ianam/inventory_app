@@ -1,7 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import fetch from "node-fetch";
-import rules from "./rules.json" assert { type: "json" };
+import fs from "fs";
+
+const rules = JSON.parse(fs.readFileSync("./rules.json", "utf8"));
 
 const app = express();
 const PORT = process.env.PORT || 8080;
