@@ -1,0 +1,26 @@
+{
+  "aliasGroups": {
+    "GX_LC_550_DRIVER": [
+      "EOP-GX-550-DS",
+      "EOP-LC-250-DS"
+    ],
+    "GX_LC_550_PASSENGER": [
+      "EOP-GX-550-PS",
+      "EOP-LC-250-PS"
+    ],
+    "GX_LC_550_SET": [
+      "EOP-GX-550-SET",
+      "EOP-LC-250-SET"
+    ]
+  },
+
+  "sets": [
+    {
+      "setGroup": "GX_LC_550_SET",
+      "components": [
+        "GX_LC_550_DRIVER",
+        "GX_LC_550_PASSENGER"
+      ]
+    }
+  ]
+}
