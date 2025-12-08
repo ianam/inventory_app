@@ -14,15 +14,18 @@
     ],
     "GX_LC_470_DRIVER": [
       "EOP-GX-470-DS",
-      "EOP-LC-120-DS"
+      "EOP-LC-120-DS",
+      "EOP-GX-460-DS"
     ],
     "GX_LC_470_PASSENGER": [
       "EOP-GX-470-PS",
-      "EOP-LC-120-PS"
+      "EOP-LC-120-PS",
+      "EOP-GX-460-PS"
     ],
     "GX_LC_470_SET": [
       "EOP-GX-470-SET",
-      "EOP-LC-120-SET"
+      "EOP-LC-120-SET",
+      "EOP-GX-460-SET"
     ],
     "4R3_SEQ1_DRIVER": [
       "EOP-4R-G3-DS",
@@ -206,6 +209,9 @@
       "RR-LC-250",
       "RR-GX-550"
     ],
+    "RR_GX_460_RACK": [
+      "RR-GX-460"
+    ],
     "RR_TAC_G2_G3": [
       "RR-TAC-G2",
       "RR-TAC-G3"
@@ -279,6 +285,9 @@
     ],
     "COM_GX_470": [
       "COM-GX-470"
+    ],
+    "COM_GX_460": [
+       "COM-GX-460"
     ],
     "COM_LC_120": [
       "COM-LC-120"
@@ -563,6 +572,13 @@
       "components": [
         "RR_4R_G3_G2",
         "4R3_SEQ1_SET"
+      ]
+    },
+    {
+      "setGroup": "COM_GX_460",
+      "components": [
+        "RR_GX_460_RACK",
+        "GX_LC_470_SET"
       ]
     }
   ]
