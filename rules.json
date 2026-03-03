@@ -580,6 +580,77 @@
         "RR_GX_460_RACK",
         "GX_LC_470_SET"
       ]
-    }
+    },
+    { 
+      "setGroup": "GX_LC_550_DRIVER",      
+      "components": [
+        "GX_LC_550_SET"
+        ] 
+    },
+    { 
+      "setGroup": "GX_LC_550_PASSENGER",  
+      "components": [
+        "GX_LC_550_SET"
+        ] 
+    },
+    { 
+      "setGroup": "GX_LC_470_DRIVER",     
+      "components": [
+        "GX_LC_470_SET"
+        ] 
+    },
+    { 
+      "setGroup": "GX_LC_470_PASSENGER",  
+      "components": [
+        "GX_LC_470_SET"
+        ] 
+    },
+    { "setGroup": "4R3_SEQ1_DRIVER",      "components": ["4R3_SEQ1_SET"] },
+    { "setGroup": "4R3_SEQ1_PASSENGER",   "components": ["4R3_SEQ1_SET"] },
+
+    { "setGroup": "RIV_R1S_DRIVER",       "components": ["RIV_R1S_SET"] },
+    { "setGroup": "RIV_R1S_PASSENGER",    "components": ["RIV_R1S_SET"] },
+
+    { "setGroup": "SEQ_G2_DRIVER",        "components": ["SEQ_G2_SET"] },
+    { "setGroup": "SEQ_G2_PASSENGER",     "components": ["SEQ_G2_SET"] },
+
+    { "setGroup": "CAY_G1_DRIVER",        "components": ["CAY_G1_SET"] },
+    { "setGroup": "CAY_G1_PASSENGER",     "components": ["CAY_G1_SET"] },
+
+    { "setGroup": "RAV4_G5_DRIVER",       "components": ["RAV4_G5_SET"] },
+    { "setGroup": "RAV4_G5_PASSENGER",    "components": ["RAV4_G5_SET"] },
+
+    { "setGroup": "FJ_G1_DRIVER",         "components": ["FJ_G1_SET"] },
+    { "setGroup": "FJ_G1_PASSENGER",      "components": ["FJ_G1_SET"] },
+
+    { "setGroup": "4R_G6_DRIVER",         "components": ["4R_G6_SET"] },
+    { "setGroup": "4R_G6_PASSENGER",      "components": ["4R_G6_SET"] },
+
+    { "setGroup": "4R_G5_DRIVER",         "components": ["4R_G5_SET"] },
+    { "setGroup": "4R_G5_PASSENGER",      "components": ["4R_G5_SET"] },
+
+    { "setGroup": "4R_G4_DRIVER",         "components": ["4R_G4_SET"] },
+    { "setGroup": "4R_G4_PASSENGER",      "components": ["4R_G4_SET"] },
+
+    { "setGroup": "IOP_GX_LC_550_DRIVER",     "components": ["IOP_GX_LC_550_SET"] },
+    { "setGroup": "IOP_GX_LC_550_PASSENGER",  "components": ["IOP_GX_LC_550_SET"] },
+
+    { "setGroup": "IOP_GX_LC_470_DRIVER",     "components": ["IOP_GX_LC_470_SET"] },
+    { "setGroup": "IOP_GX_LC_470_PASSENGER",  "components": ["IOP_GX_LC_470_SET"] },
+
+    { "setGroup": "IOP_4R_G6_DRIVER",     "components": ["IOP_4R_G6_SET"] },
+    { "setGroup": "IOP_4R_G6_PASSENGER",  "components": ["IOP_4R_G6_SET"] },
+
+    { "setGroup": "IOP_4R_G5_DRIVER",     "components": ["IOP_4R_G5_SET"] },
+    { "setGroup": "IOP_4R_G5_PASSENGER",  "components": ["IOP_4R_G5_SET"] },
+
+    { "setGroup": "IOP_4R_G3_DRIVER",     "components": ["IOP_4R_G3_SET"] },
+    { "setGroup": "IOP_4R_G3_PASSENGER",  "components": ["IOP_4R_G3_SET"] },
+
+    { "setGroup": "IOP_SEQ_G2_DRIVER",    "components": ["IOP_SEQ_G2_SET"] },
+    { "setGroup": "IOP_SEQ_G2_PASSENGER", "components": ["IOP_SEQ_G2_SET"] },
+
+    { "setGroup": "IOP_SEQ_G1_DRIVER",    "components": ["IOP_SEQ_G1_SET"] },
+    { "setGroup": "IOP_SEQ_G1_PASSENGER", "components": ["IOP_SEQ_G1_SET"] }
   ]
 }
